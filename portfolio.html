@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malaika Amjad — Software Engineer</title>
+<meta name="description" content="Portfolio of Malaika Amjad, Software Engineering student focused on AI, cybersecurity and web development.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e1a1c;
+    --bg-alt:#12222489;
+    --panel:#15282b;
+    --panel-border: rgba(237,237,227,0.09);
+    --text:#EAEAE0;
+    --text-muted:#8AA19E;
+    --text-dim:#5C726F;
+    --accent:#c99a3f;
+    --accent-soft: rgba(201,154,63,0.14);
+    --teal:#4FA8A0;
+    --radius: 3px;
+    --maxw: 1120px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* faint circuit dot grid background */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image: radial-gradient(circle, rgba(237,237,227,0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--text);
+  }
+
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:0.6em;
+    margin-bottom:1.1rem;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;
+    height:1px;
+    background:var(--accent);
+    display:inline-block;
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  ::selection{ background:var(--accent); color:#0e1a1c; }
+
+  /* ---------- Layout shell ---------- */
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 6vw;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(14,26,28,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--panel-border);
+  }
+  .nav-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:1.1rem 6vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .nav-logo{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.95rem;
+    color:var(--text);
+    letter-spacing:0.02em;
+  }
+  .nav-logo span{ color:var(--accent); }
+  nav.links{ display:flex; gap:2.4rem; }
+  nav.links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    position:relative;
+    padding-bottom:4px;
+    transition:color 0.25s ease;
+  }
+  nav.links a::after{
+    content:"";
+    position:absolute; left:0; bottom:0;
+    width:0; height:1px;
+    background:var(--accent);
+    transition:width 0.25s ease;
+  }
+  nav.links a:hover{ color:var(--text); }
+  nav.links a:hover::after{ width:100%; }
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:1px solid var(--panel-border);
+    border-radius:2px;
+    width:40px;
+    height:36px;
+    padding:0;
+    cursor:pointer;
+    position:relative;
+    z-index:110;
+  }
+  .nav-toggle span{
+    position:absolute;
+    left:10px;
+    right:10px;
+    height:1px;
+    background:var(--text);
+    transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+  }
+  .nav-toggle span:nth-child(1){ top:14px; }
+  .nav-toggle span:nth-child(2){ top:19px; }
+  .nav-toggle span:nth-child(3){ top:24px; }
+  .nav-toggle.open span{ background:var(--accent); }
+  .nav-toggle.open span:nth-child(1){ transform: translateY(5px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform: translateY(-5px) rotate(-45deg); }
+
+  .mobile-menu{
+    position:fixed;
+    inset:0;
+    z-index:99;
+    background:rgba(14,26,28,0.98);
+    backdrop-filter: blur(10px);
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    gap:0.4rem;
+    padding:0 8vw;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  }
+  .mobile-menu.open{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+  .mobile-menu a{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:1.9rem;
+    font-weight:600;
+    color:var(--text);
+    padding:0.55rem 0;
+    display:flex;
+    align-items:baseline;
+    gap:0.7rem;
+    border-bottom:1px solid transparent;
+  }
+  .mobile-menu a .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    font-weight:400;
+    color:var(--accent);
+  }
+  .mobile-menu a:active,
+  .mobile-menu a:hover{ color:var(--accent); }
+  .mobile-menu-foot{
+    margin-top:2.4rem;
+    display:flex;
+    gap:1.4rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--text-muted);
+  }
+  body.menu-open{ overflow:hidden; }
+
+  /* ---------- Circuit trace (signature element) ---------- */
+  .trace-rail{
+    position:fixed;
+    left:calc(6vw - 2px);
+    top:0;
+    bottom:0;
+    width:2px;
+    z-index:5;
+    display:block;
+  }
+  @media (max-width:900px){ .trace-rail{ display:none; } }
+  .trace-rail svg{ height:100%; width:40px; overflow:visible; }
+  .trace-path{
+    fill:none;
+    stroke:var(--panel-border);
+    stroke-width:2;
+  }
+  .trace-path-fill{
+    fill:none;
+    stroke:var(--accent);
+    stroke-width:2;
+    stroke-dasharray:1;
+    stroke-dashoffset:1;
+    transition: stroke-dashoffset 0.1s linear;
+  }
+  .trace-node{
+    fill:var(--bg);
+    stroke:var(--text-dim);
+    stroke-width:1.5;
+    r:4;
+    transition: stroke 0.3s ease, fill 0.3s ease;
+  }
+  .trace-node.active{
+    stroke:var(--accent);
+    fill:var(--accent);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:6rem;
+    position:relative;
+  }
+  .hero-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:var(--teal);
+    letter-spacing:0.08em;
+    margin-bottom:1.4rem;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    line-height:1.05;
+    max-width:14ch;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--accent);
+  }
+  .hero-sub{
+    margin-top:1.6rem;
+    max-width:52ch;
+    font-size:1.08rem;
+    color:var(--text-muted);
+    font-weight:300;
+  }
+  .hero-actions{
+    margin-top:2.6rem;
+    display:flex;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem;
+    letter-spacing:0.04em;
+    padding:0.9rem 1.6rem;
+    border-radius:var(--radius);
+    border:1px solid var(--panel-border);
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    transition: all 0.25s ease;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#111;
+    border-color:var(--accent);
+    font-weight:500;
+  }
+  .btn-primary:hover{
+    background:transparent;
+    color:var(--accent);
+  }
+  .btn-ghost:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+
+  /* terminal card */
+  .terminal{
+    margin-top:3.6rem;
+    max-width:560px;
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .terminal-bar{
+    display:flex;
+    align-items:center;
+    gap:0.5rem;
+    padding:0.7rem 1rem;
+    background:rgba(255,255,255,0.02);
+    border-bottom:1px solid var(--panel-border);
+  }
+  .terminal-dot{ width:9px; height:9px; border-radius:50%; background:#3a4a4a; }
+  .terminal-title{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--text-dim);
+    margin-left:0.4rem;
+  }
+  .terminal-body{
+    padding:1.3rem 1.4rem 1.6rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.86rem;
+    color:var(--text-muted);
+    min-height:118px;
+  }
+  .terminal-body .prompt{ color:var(--teal); }
+  .terminal-body .out{ color:var(--text); }
+  .terminal-body .cursor{
+    display:inline-block;
+    width:7px; height:1em;
+    background:var(--accent);
+    margin-left:2px;
+    vertical-align:text-bottom;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* ---------- Section shells ---------- */
+  section{
+    padding:8.5rem 0 2rem;
+    position:relative;
+  }
+  .section-head{
+    margin-bottom:3.4rem;
+  }
+  .section-head h2{
+    font-size:clamp(1.9rem, 3.4vw, 2.6rem);
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap:4rem;
+    align-items:start;
+  }
+  @media (max-width:800px){ .about-grid{ grid-template-columns:1fr; gap:2.5rem; } }
+  .about-text p{ color:var(--text-muted); margin-bottom:1.1rem; max-width:58ch; }
+  .about-text p strong{ color:var(--text); font-weight:500; }
+
+  .fact-list{
+    border-top:1px solid var(--panel-border);
+  }
+  .fact-row{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    padding:0.95rem 0;
+    border-bottom:1px solid var(--panel-border);
+    font-size:0.92rem;
+  }
+  .fact-row .k{ color:var(--text-dim); font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; }
+  .fact-row .v{ color:var(--text); text-align:right; }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+    gap:1px;
+    background:var(--panel-border);
+    border:1px solid var(--panel-border);
+  }
+  .skill-cat{
+    background:var(--bg);
+    padding:1.8rem 1.7rem;
+  }
+  .skill-cat h3{
+    font-size:0.95rem;
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:1.1rem;
+    font-weight:500;
+  }
+  .tag-list{ display:flex; flex-wrap:wrap; gap:0.5rem; }
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.76rem;
+    padding:0.35rem 0.7rem;
+    border:1px solid var(--panel-border);
+    border-radius:2px;
+    color:var(--text-muted);
+    transition: all 0.25s ease;
+  }
+  .tag:hover{ border-color:var(--teal); color:var(--teal); }
+
+  /* ---------- Projects ---------- */
+  .project{
+    display:grid;
+    grid-template-columns: 0.9fr 2.1fr;
+    gap:2.5rem;
+    padding:2.6rem 0;
+    border-top:1px solid var(--panel-border);
+  }
+  .project:last-child{ border-bottom:1px solid var(--panel-border); }
+  @media (max-width:800px){ .project{ grid-template-columns:1fr; gap:1rem; } }
+  .project-meta{ display:flex; flex-direction:column; gap:0.6rem; }
+  .project-index{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--text-dim);
+    font-size:0.8rem;
+  }
+  .project-type{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--teal);
+    font-size:0.75rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .project h3{
+    font-size:1.45rem;
+    margin-bottom:0.7rem;
+    transition:color 0.25s ease;
+  }
+  .project-body p{
+    color:var(--text-muted);
+    max-width:62ch;
+    margin-bottom:1.1rem;
+  }
+  .project:hover h3{ color:var(--accent); }
+  .stack-list{ display:flex; flex-wrap:wrap; gap:0.5rem; }
+
+  /* ---------- Education ---------- */
+  .edu-card{
+    border:1px solid var(--panel-border);
+    padding:2.2rem 2.4rem;
+    display:flex;
+    justify-content:space-between;
+    gap:2rem;
+    flex-wrap:wrap;
+    background: linear-gradient(180deg, rgba(201,154,63,0.03), transparent);
+  }
+  .edu-card h3{ font-size:1.3rem; margin-bottom:0.4rem; }
+  .edu-card .school{ color:var(--text-muted); }
+  .edu-card .status{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--accent);
+    align-self:flex-start;
+    border:1px solid var(--accent-soft);
+    padding:0.4rem 0.8rem;
+    border-radius:2px;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:2.2rem;
+  }
+  .contact-lead{
+    font-size:clamp(1.7rem,3.6vw,2.5rem);
+    max-width:16ch;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+  }
+  .contact-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem;
+    margin-top:0.6rem;
+  }
+  .contact-card{
+    border:1px solid var(--panel-border);
+    padding:1.3rem 1.6rem;
+    min-width:220px;
+    flex:1;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .contact-card:hover{ border-color:var(--accent); transform:translateY(-3px); }
+  .contact-card .k{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    letter-spacing:0.06em;
+    display:block;
+    margin-bottom:0.5rem;
+  }
+  .contact-card .v{ font-size:1rem; color:var(--text); }
+
+  footer{
+    margin-top:6rem;
+    padding:2.4rem 0 3rem;
+    border-top:1px solid var(--panel-border);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:1rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.76rem;
+    color:var(--text-dim);
+  }
+
+  @media (max-width:700px){
+    nav.links{ display:none; }
+    .nav-toggle{ display:block; }
+  }
+</style>
+</head>
+<body>
+
+<div class="trace-rail" aria-hidden="true">
+  <svg viewBox="0 0 40 2000" preserveAspectRatio="none">
+    <path id="tracePath" class="trace-path" d="M20,0 L20,2000"/>
+    <path id="tracePathFill" class="trace-path-fill" d="M20,0 L20,2000"/>
+    <circle class="trace-node" data-sec="home" cx="20" cy="60"/>
+    <circle class="trace-node" data-sec="about" cx="20" cy="500"/>
+    <circle class="trace-node" data-sec="skills" cx="20" cy="950"/>
+    <circle class="trace-node" data-sec="projects" cx="20" cy="1350"/>
+    <circle class="trace-node" data-sec="education" cx="20" cy="1750"/>
+    <circle class="trace-node" data-sec="contact" cx="20" cy="1960"/>
+  </svg>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">MALAIKA<span>.</span>AMJAD</div>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu">
+  <a href="#about"><span class="num mono">01</span>About</a>
+  <a href="#skills"><span class="num mono">02</span>Skills</a>
+  <a href="#projects"><span class="num mono">03</span>Projects</a>
+  <a href="#education"><span class="num mono">04</span>Education</a>
+  <a href="#contact"><span class="num mono">05</span>Contact</a>
+  <div class="mobile-menu-foot">
+    <a href="mailto:malaikaamjad208@gmail.com">Email</a>
+    <a href="https://github.com/malaika477" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/malaika-amjad" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="hero" id="home">
+    <div class="hero-kicker mono">// software engineering student — islamabad, pakistan</div>
+    <h1>Building things at the intersection of <em>AI</em> and <em>security</em>.</h1>
+    <p class="hero-sub">I'm Malaika Amjad, a software engineering undergraduate who likes taking a system apart to see how it holds together — then rebuilding it to be faster, safer, or smarter. Currently exploring AI-driven tools and applied cybersecurity.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">View projects</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+
+    <div class="terminal" aria-hidden="true">
+      <div class="terminal-bar">
+        <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+        <span class="terminal-title">malaika@portfolio — zsh</span>
+      </div>
+      <div class="terminal-body" id="termBody"></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head reveal">
+      <div class="eyebrow">About</div>
+      <h2>Currently 6th semester, always mid-project.</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I'm a <strong>Software Engineering</strong> student at the International Islamic University, Islamabad, expecting to graduate in <strong>2027</strong>. Most of what I know has come from building — academic projects that forced me to work across the stack, from database design to REST APIs to the interface people actually touch.</p>
+        <p>Lately I've been drawn to <strong>artificial intelligence</strong> and <strong>cybersecurity</strong>: how systems can be made to reason over data, and how they can be made to withstand the people trying to break them. I'm looking for opportunities to bring that curiosity into a real engineering team.</p>
+      </div>
+      <div class="fact-list">
+        <div class="fact-row"><span class="k">Degree</span><span class="v">BS Software Engineering</span></div>
+        <div class="fact-row"><span class="k">University</span><span class="v">Intl. Islamic University, Islamabad</span></div>
+        <div class="fact-row"><span class="k">Standing</span><span class="v">6th Semester</span></div>
+        <div class="fact-row"><span class="k">Graduating</span><span class="v">2027</span></div>
+        <div class="fact-row"><span class="k">Focus</span><span class="v">AI · Security · Web</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head reveal">
+      <div class="eyebrow">Skills</div>
+      <h2>The toolkit I build with.</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-cat">
+        <h3>Languages</h3>
+        <div class="tag-list">
+          <span class="tag">C++</span><span class="tag">Python</span><span class="tag">Java</span>
+          <span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Frameworks</h3>
+        <div class="tag-list">
+          <span class="tag">React</span><span class="tag">Node.js (MERN)</span><span class="tag">Streamlit</span><span class="tag">LangChain</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Data & Databases</h3>
+        <div class="tag-list">
+          <span class="tag">MySQL</span><span class="tag">Oracle</span><span class="tag">MongoDB</span><span class="tag">FAISS</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Security & Networking</h3>
+        <div class="tag-list">
+          <span class="tag">Cisco Packet Tracer</span><span class="tag">Wireshark</span><span class="tag">Deep Packet Inspection</span><span class="tag">Information Security</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Tools</h3>
+        <div class="tag-list">
+          <span class="tag">VS Code</span><span class="tag">Git & GitHub</span><span class="tag">Google Colab</span><span class="tag">Google Gemini API</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Working style</h3>
+        <div class="tag-list">
+          <span class="tag">Teamwork</span><span class="tag">Communication</span><span class="tag">Time management</span><span class="tag">Fast learner</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head reveal">
+      <div class="eyebrow">Projects</div>
+      <h2>Academic work, built to behave like real systems.</h2>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-meta">
+        <span class="project-index mono">01</span>
+        <span class="project-type">Full-stack · Blockchain</span>
+      </div>
+      <div class="project-body">
+        <h3>Blockchain-Based Supply Chain Tracking System</h3>
+        <p>A full-stack platform that follows a product through a simulated supply chain. Each checkpoint is verified with a QR code and written to a simulated blockchain, with a REST API feeding a real-time dashboard so anyone can see exactly where a shipment stands and confirm it hasn't been tampered with.</p>
+        <div class="stack-list">
+          <span class="tag">REST API</span><span class="tag">QR Verification</span><span class="tag">Real-time Dashboard</span><span class="tag">Blockchain Simulation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-meta">
+        <span class="project-index mono">02</span>
+        <span class="project-type">Full-stack · MERN</span>
+      </div>
+      <div class="project-body">
+        <h3>Food Delivery Application</h3>
+        <p>A complete ordering platform built on the MERN stack, covering user authentication, a persistent cart, and end-to-end order management — the kind of everyday product that hides a surprising amount of state to manage correctly.</p>
+        <div class="stack-list">
+          <span class="tag">MongoDB</span><span class="tag">Express</span><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Auth</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-meta">
+        <span class="project-index mono">03</span>
+        <span class="project-type">AI · Cybersecurity</span>
+      </div>
+      <div class="project-body">
+        <h3>AI-Powered Cybersecurity Incident RAG Chatbot</h3>
+        <p>A retrieval-augmented chatbot that reads through real-world cybersecurity incident reports and answers questions about them directly, turning dense incident write-ups into something you can actually query in plain language.</p>
+        <div class="stack-list">
+          <span class="tag">Python</span><span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">Streamlit</span><span class="tag">Google Gemini API</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-head reveal">
+      <div class="eyebrow">Education</div>
+      <h2>Where it's being built.</h2>
+    </div>
+    <div class="edu-card reveal">
+      <div>
+        <h3>BS Software Engineering</h3>
+        <div class="school">International Islamic University, Islamabad</div>
+      </div>
+      <span class="status mono">6th Semester · Expected 2027</span>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-head reveal">
+      <div class="eyebrow">Contact</div>
+      <h2 class="contact-lead">Open to internships, collaborations, and good problems to solve.</h2>
+    </div>
+    <div class="contact-wrap reveal">
+      <div class="contact-links">
+        <a class="contact-card" href="mailto:malaikaamjad208@gmail.com">
+          <span class="k mono">Email</span>
+          <span class="v">malaikaamjad208@gmail.com</span>
+        </a>
+        <a class="contact-card" href="https://github.com/malaika477" target="_blank" rel="noopener">
+          <span class="k mono">GitHub</span>
+          <span class="v">github.com/malaika477</span>
+        </a>
+        <a class="contact-card" href="https://linkedin.com/in/malaika-amjad" target="_blank" rel="noopener">
+          <span class="k mono">LinkedIn</span>
+          <span class="v">linkedin.com/in/malaika-amjad</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Malaika Amjad</span>
+    <span>Designed &amp; built with care.</span>
+  </footer>
+
+</div>
+
+<script>
+  // Terminal typing effect
+  const termBody = document.getElementById('termBody');
+  const lines = [
+    { prompt: '$ ', cmd: 'whoami', out: 'malaika-amjad — software engineering student' },
+    { prompt: '$ ', cmd: 'cat focus.txt', out: 'AI · Cybersecurity · Web Development' },
+    { prompt: '$ ', cmd: 'status', out: 'open to internships →' }
+  ];
+
+  function typeLine(container, text, done){
+    let i = 0;
+    const span = document.createElement('span');
+    container.appendChild(span);
+    const iv = setInterval(() => {
+      span.textContent += text[i];
+      i++;
+      if(i >= text.length){ clearInterval(iv); done(); }
+    }, 28);
+  }
+
+  async function runTerminal(){
+    for(const line of lines){
+      const row = document.createElement('div');
+      const promptSpan = document.createElement('span');
+      promptSpan.className = 'prompt';
+      promptSpan.textContent = line.prompt;
+      row.appendChild(promptSpan);
+      termBody.appendChild(row);
+      await new Promise(res => typeLine(row, line.cmd, res));
+      await new Promise(r => setTimeout(r, 220));
+      const outRow = document.createElement('div');
+      outRow.className = 'out';
+      outRow.textContent = line.out;
+      termBody.appendChild(outRow);
+      await new Promise(r => setTimeout(r, 420));
+    }
+    const cursorRow = document.createElement('div');
+    const cp = document.createElement('span');
+    cp.className = 'prompt';
+    cp.textContent = '$ ';
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    cursorRow.appendChild(cp);
+    cursorRow.appendChild(cursor);
+    termBody.appendChild(cursorRow);
+  }
+  runTerminal();
+
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  function closeMenu(){
+    navToggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+  }
+  function openMenu(){
+    navToggle.classList.add('open');
+    mobileMenu.classList.add('open');
+    navToggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open');
+  }
+  navToggle.addEventListener('click', () => {
+    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  window.addEventListener('resize', () => { if(window.innerWidth > 700) closeMenu(); });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Trace rail: draw progress + active node
+  const tracePathFill = document.getElementById('tracePathFill');
+  const traceLen = document.getElementById('tracePath').getTotalLength();
+  tracePathFill.style.strokeDasharray = traceLen;
+  tracePathFill.style.strokeDashoffset = traceLen;
+
+  const sections = ['home','about','skills','projects','education','contact'].map(id => document.getElementById(id));
+  const nodes = document.querySelectorAll('.trace-node');
+
+  function onScroll(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    const pct = Math.min(scrollTop / docHeight, 1);
+    tracePathFill.style.strokeDashoffset = traceLen * (1 - pct);
+
+    let activeIdx = 0;
+    sections.forEach((sec, idx) => {
+      if(sec.getBoundingClientRect().top < window.innerHeight * 0.5) activeIdx = idx;
+    });
+    nodes.forEach((n, idx) => n.classList.toggle('active', idx === activeIdx));
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+</script>
+
+</body>
+</html>
